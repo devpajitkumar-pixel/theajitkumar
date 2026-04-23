@@ -1,0 +1,21 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="760" rx="28" fill="#0B1220"/>
+  <rect x="40" y="40" width="1120" height="680" rx="24" fill="#0F172A" stroke="#1E293B"/>
+  <circle cx="140" cy="120" r="8" fill="#D4AF37"/>
+  <circle cx="170" cy="120" r="8" fill="#E0B84A"/>
+  <circle cx="200" cy="120" r="8" fill="#B8892F"/>
+  <rect x="100" y="180" width="220" height="120" rx="16" fill="#111827" stroke="#334155"/>
+  <text x="125" y="235" fill="#F1C75B" font-size="24" font-family="Arial">Frontend</text>
+  <rect x="490" y="180" width="220" height="120" rx="16" fill="#111827" stroke="#334155"/>
+  <text x="530" y="235" fill="#F1C75B" font-size="24" font-family="Arial">API Layer</text>
+  <rect x="880" y="180" width="220" height="120" rx="16" fill="#111827" stroke="#334155"/>
+  <text x="930" y="235" fill="#F1C75B" font-size="24" font-family="Arial">Database</text>
+  <rect x="295" y="420" width="220" height="120" rx="16" fill="#111827" stroke="#334155"/>
+  <text x="335" y="475" fill="#F1C75B" font-size="24" font-family="Arial">Queue</text>
+  <rect x="685" y="420" width="220" height="120" rx="16" fill="#111827" stroke="#334155"/>
+  <text x="740" y="475" fill="#F1C75B" font-size="24" font-family="Arial">Reports</text>
+  <path d="M320 240H490" stroke="#D4AF37" stroke-width="4"/>
+  <path d="M710 240H880" stroke="#D4AF37" stroke-width="4"/>
+  <path d="M600 300V420" stroke="#D4AF37" stroke-width="4"/>
+  <path d="M515 480H685" stroke="#D4AF37" stroke-width="4"/>
+</svg>

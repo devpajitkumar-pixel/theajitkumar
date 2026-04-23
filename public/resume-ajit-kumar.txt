@@ -1,0 +1,6 @@
+Ajit Kumar - Resume Placeholder
+
+Please replace this file with your final PDF resume at:
+public/resume-ajit-kumar.pdf
+
+Then update Hero CTA href to "/resume-ajit-kumar.pdf" if needed.
