@@ -4,6 +4,7 @@ date: "2026-04-18"
 description: "Practical habits for Nginx, process management, and safer releases without a massive platform team."
 image: "/images/blog/thumb-deploy.svg"
 category: "DevOps"
+featured: true
 ---
 
 A VPS deployment is not “worse” than a managed platform—it is **a different trade**. You get control and predictable cost; you take responsibility for routing, restarts, and observability.

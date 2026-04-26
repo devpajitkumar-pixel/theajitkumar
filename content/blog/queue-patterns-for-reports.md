@@ -4,6 +4,7 @@ date: "2026-04-22"
 description: "Why idempotency, dead-letter handling, and visibility matter when Excel and PDF jobs pile up."
 image: "/images/blog/thumb-api.svg"
 category: "Engineering"
+featured: true
 ---
 
 Background workers are easy to **start** and hard to **operate**. When your product generates reports, the failure modes are rarely “the code crashed once.” They are partial retries, duplicate emails, and silent stalls.

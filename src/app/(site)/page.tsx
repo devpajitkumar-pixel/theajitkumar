@@ -1,5 +1,6 @@
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { About } from "@/components/About";
+import { FeaturedBlogTeasers } from "@/components/FeaturedBlogTeasers";
 import { Achievements } from "@/components/Achievements";
 import { Contact } from "@/components/Contact";
 import { Hero } from "@/components/Hero";
@@ -29,6 +30,7 @@ export default function HomePage() {
       />
       <Hero />
       <About />
+      <FeaturedBlogTeasers />
       <Results />
       <Skills />
       <Projects />

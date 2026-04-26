@@ -30,6 +30,7 @@ category: "Engineering"
 | `description`   | Optional  | Shown on `/blog` and in SEO/Open Graph. |
 | `image`         | Optional  | Path under **`public/`** (e.g. `/images/blog/photo.webp`). Alias: `thumbnail`. |
 | `category`      | Optional  | Sidebar filters; omit → **Uncategorized**. |
+| `featured`      | Optional  | Set `true` to pin the post to the **homepage** “Latest featured posts” block first; remaining slots use newest posts. |
 
 After the closing `---`, write the **body** in Markdown.
 

@@ -28,7 +28,13 @@ function parseFrontmatterData(slug: string, data: Record<string, unknown>) {
   const categoryRaw = data.category;
   const category =
     categoryRaw != null && String(categoryRaw).trim() !== "" ? String(categoryRaw).trim() : undefined;
-  return { title, date, description, image, category };
+  const featuredRaw = data.featured;
+  const featured =
+    featuredRaw === true ||
+    featuredRaw === "true" ||
+    featuredRaw === 1 ||
+    featuredRaw === "1";
+  return { title, date, description, image, category, featured };
 }
 
 function readPostFile(slug: string): string | null {
@@ -72,6 +78,14 @@ export function getCategorySummaries(posts: BlogPostMeta[]): { name: string; cou
 export function getRecentPostsMeta(limit: number, excludeSlug?: string): BlogPostMeta[] {
   const all = getAllPostsMeta();
   return all.filter((p) => p.slug !== excludeSlug).slice(0, limit);
+}
+
+/** Featured posts first (newest among featured), then others, up to `limit`. */
+export function getHomeFeaturedPosts(limit = 3): BlogPostMeta[] {
+  const all = getAllPostsMeta();
+  const featured = all.filter((p) => p.featured);
+  const rest = all.filter((p) => !p.featured);
+  return [...featured, ...rest].slice(0, limit);
 }
 
 export function filterPostsMeta(posts: BlogPostMeta[], q?: string, category?: string): BlogPostMeta[] {
