@@ -7,16 +7,17 @@ import type {
 } from "@/types/portfolio";
 
 export const navItems: NavItem[] = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Results", href: "#results" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Achievements", href: "#achievements" },
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
-  { label: "Why Me", href: "#why-work-with-me" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "Blog", href: "/blog" },
+  { label: "About", href: "/about" },
+  { label: "Results", href: "/results" },
+  { label: "Skills", href: "/skills" },
+  { label: "Projects", href: "/projects" },
+  { label: "Achievements", href: "/achievements" },
+  { label: "Services", href: "/services" },
+  { label: "Process", href: "/process" },
+  { label: "Why Me", href: "/why-work-with-me" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const skillCategories: SkillCategory[] = [

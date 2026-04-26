@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Great_Vibes } from "next/font/google";
+import Link from "next/link";
 
 const flowNodes = [
   { id: "client", label: "Client", x: "8%", y: "14%" },
@@ -80,18 +81,18 @@ export function Hero() {
             </div>
           </div>
           <div className="mt-10 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:gap-3">
-            <a
-              href="#projects"
+            <Link
+              href="/projects"
               className="rounded-full bg-[var(--accent)] px-2 py-2.5 text-center text-[11px] font-semibold leading-tight text-[#1a1408] transition hover:bg-[var(--accent-strong)] sm:px-5 sm:py-3 sm:text-sm"
             >
               View Projects
-            </a>
-            <a
-              href="#contact"
+            </Link>
+            <Link
+              href="/contact"
               className="rounded-full border border-[var(--border)] px-2 py-2.5 text-center text-[11px] font-semibold leading-tight text-[var(--heading)] transition hover:border-[var(--accent)]/45 hover:bg-[var(--accent-soft)] sm:px-5 sm:py-3 sm:text-sm"
             >
               Contact Me
-            </a>
+            </Link>
             <a
               href="/resume-ajit-kumar.txt"
               className="rounded-full border border-[var(--accent)]/55 px-2 py-2.5 text-center text-[11px] font-semibold leading-tight text-[var(--accent-strong)] transition hover:bg-[var(--accent-soft)] sm:px-5 sm:py-3 sm:text-sm"

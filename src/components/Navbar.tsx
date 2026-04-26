@@ -3,33 +3,17 @@
 import { navItems } from "@/data/portfolioData";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+function isNavActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export function Navbar() {
-  const [activeHash, setActiveHash] = useState("#home");
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const sections = navItems
-      .map((item) => document.querySelector(item.href))
-      .filter((el): el is Element => Boolean(el));
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (visible?.target.id) {
-          setActiveHash(`#${visible.target.id}`);
-        }
-      },
-      { threshold: [0.25, 0.5, 0.75], rootMargin: "-80px 0px -45% 0px" },
-    );
-
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -57,20 +41,21 @@ export function Navbar() {
             />
           </Link>
           <ul className="hidden min-w-0 flex-1 items-center justify-end gap-1 xl:flex">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  className={`rounded-full px-3 py-2 text-xs whitespace-nowrap transition-all sm:text-sm ${
-                    activeHash === item.href
-                      ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]"
-                      : "text-[var(--muted)] hover:bg-[var(--accent-soft)] hover:text-[var(--heading)]"
-                  }`}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
+            {navItems.map((item) => {
+              const active = isNavActive(pathname, item.href);
+              const className = `rounded-full px-3 py-2 text-xs whitespace-nowrap transition-all sm:text-sm ${
+                active
+                  ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]"
+                  : "text-[var(--muted)] hover:bg-[var(--accent-soft)] hover:text-[var(--heading)]"
+              }`;
+              return (
+                <li key={item.href}>
+                  <Link href={item.href} className={className}>
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
           <button
             type="button"
@@ -102,21 +87,21 @@ export function Navbar() {
             isMobileMenuOpen ? "max-h-[600px] opacity-100" : "max-h-0 border-transparent p-0 opacity-0"
           }`}
         >
-          {navItems.map((item) => (
-            <li key={item.href}>
-              <a
-                href={item.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`block rounded-lg px-4 py-2 text-xs transition-all sm:text-sm ${
-                  activeHash === item.href
-                    ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]"
-                    : "text-[var(--muted)] hover:bg-[var(--accent-soft)] hover:text-[var(--heading)]"
-                }`}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
+          {navItems.map((item) => {
+            const active = isNavActive(pathname, item.href);
+            const className = `block rounded-lg px-4 py-2 text-xs transition-all sm:text-sm ${
+              active
+                ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]"
+                : "text-[var(--muted)] hover:bg-[var(--accent-soft)] hover:text-[var(--heading)]"
+            }`;
+            return (
+              <li key={item.href}>
+                <Link href={item.href} onClick={() => setIsMobileMenuOpen(false)} className={className}>
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </nav>
     </header>

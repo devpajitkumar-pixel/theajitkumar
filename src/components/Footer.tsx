@@ -17,9 +17,17 @@ export function Footer() {
           </div>
         </div>
 
-        <p className="text-xs text-[var(--muted)] sm:text-sm">
-          © {year} Ajit Kumar. All rights reserved.
-        </p>
+        <div className="flex flex-col items-start gap-3 sm:items-end">
+          <Link
+            href="/privacy-policy"
+            className="text-xs text-[var(--muted)] underline underline-offset-2 transition hover:text-[var(--heading)] sm:text-sm"
+          >
+            Privacy policy
+          </Link>
+          <p className="text-xs text-[var(--muted)] sm:text-sm">
+            © {year} Ajit Kumar. All rights reserved.
+          </p>
+        </div>
       </div>
     </footer>
   );
