@@ -28,6 +28,12 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <meta
+          name="google-site-verification"
+          content="01OSfplMFOiQX1zmIRFmkq7wZAtPEtUnQOe6fyhAH4Y"
+        />
+      </head>
       <body className="flex min-h-full flex-col">
         <GoogleTagManager />
         <JsonLd id="ld-global" data={buildGlobalSchemaGraph()} />
