@@ -109,7 +109,7 @@ export default async function BlogIndexPage({ searchParams }: Props) {
             <p className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-6 py-10 text-[var(--muted)]">
               {allMeta.length === 0 ? (
                 <>
-                  No posts yet. Add Markdown files under{" "}
+                  No posts yet. Add HTML files (YAML frontmatter + HTML/Tailwind) under{" "}
                   <code className="rounded bg-[var(--surface-alt)] px-1.5 py-0.5 font-mono text-sm text-[var(--heading)]">
                     content/blog
                   </code>

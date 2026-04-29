@@ -1,6 +1,5 @@
 import fs from "fs";
 import matter from "gray-matter";
-import { marked } from "marked";
 import path from "path";
 import type { BlogPost, BlogPostMeta } from "@/types/blog";
 
@@ -38,7 +37,7 @@ function parseFrontmatterData(slug: string, data: Record<string, unknown>) {
 }
 
 function readPostFile(slug: string): string | null {
-  const fullPath = path.join(postsDirectory, `${slug}.md`);
+  const fullPath = path.join(postsDirectory, `${slug}.html`);
   if (!fs.existsSync(fullPath)) return null;
   return fs.readFileSync(fullPath, "utf8");
 }
@@ -47,8 +46,8 @@ export function getPostSlugs(): string[] {
   if (!fs.existsSync(postsDirectory)) return [];
   return fs
     .readdirSync(postsDirectory)
-    .filter((f) => f.endsWith(".md") && f.toLowerCase() !== "readme.md")
-    .map((f) => f.replace(/\.md$/, ""));
+    .filter((f) => f.endsWith(".html") && f.toLowerCase() !== "readme.html")
+    .map((f) => f.replace(/\.html$/i, ""));
 }
 
 export function getAllPostsMeta(): BlogPostMeta[] {
@@ -144,6 +143,5 @@ export function getPostBySlug(slug: string): BlogPost | null {
   if (!raw) return null;
   const { data, content } = matter(raw);
   const parsed = parseFrontmatterData(slug, data as Record<string, unknown>);
-  const contentHtml = marked.parse(content, { async: false }) as string;
-  return { slug, ...parsed, contentHtml };
+  return { slug, ...parsed, contentHtml: content.trim() };
 }

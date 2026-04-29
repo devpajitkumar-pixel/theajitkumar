@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Scan blog HTML so Tailwind utilities in content/blog/*.html are included in the build */
+@source "../../content/blog/**/*.html";
+
 :root {
   --background: #090b12;
   --foreground: #efe4c6;

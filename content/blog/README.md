@@ -1,87 +1,64 @@
 # Writing blog posts
 
-This folder holds Markdown files that become pages at **`/blog/<filename-without-md>`**.
+Posts are **`content/blog/<slug>.html` only** (no Markdown). URLs: **`/blog/<slug>`**.
 
-## 1. Create a file
+The page wraps your HTML in **`blog-prose`** for baseline typography (paragraphs, `h2`–`h4`, lists, links, code). You can also use **Tailwind utility classes** on any element; `globals.css` includes `@source` for this folder so those classes are picked up at build time.
 
-- Path: **`content/blog/your-post-slug.md`**
-- **Slug** = file name without `.md` (lowercase, hyphens, no spaces).  
-  Example: `redis-queues-101.md` → **https://your-domain/blog/redis-queues-101**
-- **`README.md`** in this folder is for authors only and is **not** published as a post.
+**`README.md`** is for authors only and is **not** a published post.
 
-## 2. Frontmatter (YAML)
+## Frontmatter (YAML)
 
-Put this at the **top** of the file, between `---` lines:
+At the top of the file, between `---` lines:
 
 ```yaml
 ---
-title: "Title shown as the page H1 and in listings"
+title: "Title for H1 and listings"
 date: "2026-04-26"
-description: "One or two sentences for the blog list, meta description, and social previews."
-image: "/images/blog/my-thumbnail.svg"
+description: "Short summary for /blog and SEO."
+image: "/images/blog/thumbnail.svg"
 category: "Engineering"
 ---
 ```
 
-| Field           | Required | Notes |
-|-----------------|----------|--------|
-| `title`         | Strongly recommended | Falls back to the slug if missing. |
-| `date`          | Recommended | ISO date `YYYY-MM-DD`. Used for sort order (newest first) and sitemap. |
-| `description`   | Optional  | Shown on `/blog` and in SEO/Open Graph. |
-| `image`         | Optional  | Path under **`public/`** (e.g. `/images/blog/photo.webp`). Alias: `thumbnail`. |
-| `category`      | Optional  | Sidebar filters; omit → **Uncategorized**. |
-| `featured`      | Optional  | Set `true` to pin the post to the **homepage** “Latest featured posts” block first; remaining slots use newest posts. |
+| Field | Required | Notes |
+|-------|----------|--------|
+| `title` | Strongly recommended | Falls back to slug if missing. |
+| `date` | Recommended | `YYYY-MM-DD`; sort order and sitemap. |
+| `description` | Optional | List + meta description. |
+| `image` | Optional | Path under `public/`. Alias: `thumbnail`. |
+| `category` | Optional | Sidebar filters; omit → Uncategorized. |
+| `featured` | Optional | `true` pins to homepage “Writing” block first. |
 
-After the closing `---`, write the **body** in Markdown.
+After the closing `---`, write **HTML**. Use **`<h2>`** / **`<h3>`** for sections (the post title from frontmatter is the only page **`<h1>`**).
 
-## 3. Markdown body
+## Tailwind in posts
 
-### Headings and SEO
+Example:
 
-- The **post title** in frontmatter is rendered as the only main **`<h1>`** on the page.
-- In the body, start sections with **`##`** and **`###`** (not a duplicate `#` for the same title).
-- Use **`####`** if you need a smaller subheading.
-
-### Common syntax
-
-```markdown
-## Section
-
-Paragraph with **bold**, *italic*, and a [link](https://example.com).
-
-- Bullet list
-- Second item
-
-1. Numbered list
-2. Second step
-
-> Short quote or callout.
-
-Inline `code` and fenced blocks:
-
-```ts
-const example = "syntax highlighting depends on the Markdown parser";
+```html
+<p class="text-[var(--muted)] italic">Callout styled with Tailwind.</p>
+<div class="mt-6 rounded-xl border border-[var(--border)] bg-[var(--surface-alt)] p-4">
+  <p class="text-sm text-[var(--heading)]">Card-style block</p>
+</div>
 ```
 
-### Images
+Use **`text-[var(--heading)]`**, **`text-[var(--muted)]`**, **`border-[var(--border)]`**, etc. to match the site theme.
 
-Put files in **`public/`**, then reference from the site root:
+## Images & embeds
 
-```markdown
-![Describe the image for accessibility and SEO](/images/blog/screenshot.png)
+Images live in **`public/`**:
+
+```html
+<img src="/images/blog/screenshot.png" alt="Description" class="rounded-xl" />
 ```
 
-### YouTube
+Responsive video:
 
-Raw HTML is allowed. Use the wrapper so the video is responsive:
-
-```markdown
-## Demo
-
+```html
 <div class="blog-embed">
   <iframe
     src="https://www.youtube.com/embed/VIDEO_ID"
-    title="Short description of the video"
+    title="Video description"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     allowfullscreen
     loading="lazy"
@@ -90,41 +67,14 @@ Raw HTML is allowed. Use the wrapper so the video is responsive:
 </div>
 ```
 
-Replace **`VIDEO_ID`** with the id from the watch URL (`youtube.com/watch?v=**this-part**`).
-
-Or link only:
-
-```markdown
-[Watch on YouTube](https://www.youtube.com/watch?v=VIDEO_ID)
-```
-
-## 4. Preview locally
+## Preview & production
 
 ```bash
 npm run dev
 ```
 
-Open **`http://localhost:3000/blog`** and **`http://localhost:3000/blog/your-slug`**.  
-Save the `.md` file and **refresh** the browser to see changes.
+Open `/blog` and `/blog/your-slug`. Production needs a fresh **`npm run build`** after adding or removing posts (routes, sitemap, etc.).
 
-Use **`npm run start`** only after **`npm run build`** — it does not pick up new files until you rebuild.
+## Safety
 
-## 5. Production
-
-After adding or removing posts, deploy a fresh **`npm run build`** so:
-
-- Post routes are generated  
-- **`sitemap.xml`**, **`robots.txt`**, and **`llms.txt`** stay up to date  
-
-## 6. Safety note
-
-Post HTML is rendered from Markdown/HTML you write. Only publish content you trust—don’t paste untrusted embeds or scripts.
-
-## 7. SEO / social (site-wide)
-
-Optional environment variables (see `src/lib/seo.ts` and `src/lib/json-ld.ts`):
-
-- **`NEXT_PUBLIC_SITE_URL`** — Canonical domain (no trailing slash), e.g. `https://theajitkumar.online`. Used for `metadataBase`, sitemap, and JSON-LD URLs.
-- **`NEXT_PUBLIC_TWITTER_HANDLE`** — X/Twitter username without `@`; adds `twitter:site` and `twitter:creator` on shared metadata.
-- **`NEXT_PUBLIC_PROFILE_SAME_AS`** — Comma-separated profile URLs (GitHub, LinkedIn, etc.) for **Person** `sameAs` in structured data.
-- **`NEXT_PUBLIC_GTM_ID`** — Google Tag Manager container ID (e.g. `GTM-XXXXXXX`). If unset, GTM is not loaded.
+Only publish HTML you trust. Don’t paste untrusted scripts or embeds.
